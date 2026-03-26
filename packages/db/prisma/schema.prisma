@@ -415,3 +415,16 @@ model Document {
   school     School @relation(fields: [schoolId], references: [id])
   uploadedBy User   @relation(fields: [uploadedById], references: [id])
 }
+
+model ContactInquiry {
+  id          String    @id @default(cuid())
+  name        String
+  school      String
+  email       String
+  phone       String?
+  role        String?
+  message     String
+  source      String?
+  createdAt   DateTime  @default(now())
+  respondedAt DateTime?
+}

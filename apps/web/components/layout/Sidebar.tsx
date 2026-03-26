@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
@@ -89,42 +88,63 @@ export function Sidebar({ role, userName, isOpen, onClose }: SidebarProps) {
     return true;
   };
 
+  const initials = userName
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
   return (
     <aside
       className={cn(
-        // Base styles
-        "flex flex-col w-64 flex-shrink-0 sidebar-scroll overflow-y-auto",
-        // Mobile: fixed overlay drawer
+        "flex flex-col w-64 flex-shrink-0 overflow-y-auto",
         "fixed inset-y-0 left-0 z-50 transition-transform duration-300 ease-in-out",
         "md:relative md:translate-x-0 md:z-auto",
-        // Toggle on mobile
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}
-      style={{ backgroundColor: "#1A2340" }}
+      style={{
+        backgroundColor: "#1A2340",
+        backgroundImage: `radial-gradient(circle, #2E3F6F 1px, transparent 1px)`,
+        backgroundSize: "24px 24px",
+        backgroundPosition: "0 0",
+      }}
     >
-      {/* Logo + mobile close button */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
-        <div>
-          <Image src="/transparent_background_logo.png" alt="Avulix" width={120} height={54} className="object-contain" priority />
-          <p className="text-[10px] text-white/50 leading-none mt-1">Powered by Danho Systems</p>
+      {/* Logo + mobile close */}
+      <div className="flex items-center justify-between px-5 py-5 border-b" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+        <div className="flex items-center gap-2.5">
+          <div
+            className="flex items-center justify-center w-9 h-9 rounded-xl text-white font-extrabold text-base flex-shrink-0"
+            style={{ backgroundColor: "#2E3F6F" }}
+          >
+            A
+          </div>
+          <div>
+            <p className="text-base font-extrabold text-white leading-none">
+              vuliX<span style={{ color: "#C0392B" }}>.</span>
+            </p>
+            <p className="text-[9px] font-medium mt-0.5" style={{ color: "rgba(255,255,255,0.3)" }}>
+              Powered by Danho Systems
+            </p>
+          </div>
         </div>
         <button
           onClick={onClose}
-          className="md:hidden p-1 rounded text-white/50 hover:text-white hover:bg-white/10"
+          className="md:hidden p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors"
           aria-label="Close menu"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-6">
+      <nav className="flex-1 px-3 py-4 space-y-5">
         {navSections.map((section) => {
           const visibleItems = section.items.filter((item) => canSee(item.href));
           if (visibleItems.length === 0) return null;
           return (
             <div key={section.title}>
-              <p className="px-3 mb-1 text-[10px] font-semibold tracking-widest text-white/40 uppercase">
+              <p className="px-3 mb-1.5 text-[9px] font-bold tracking-[0.2em] uppercase" style={{ color: "rgba(255,255,255,0.3)" }}>
                 {section.title}
               </p>
               <ul className="space-y-0.5">
@@ -136,16 +156,29 @@ export function Sidebar({ role, userName, isOpen, onClose }: SidebarProps) {
                         href={item.href}
                         onClick={onClose}
                         className={cn(
-                          "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-all group",
+                          "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group relative overflow-hidden",
                           active
-                            ? "text-white border-l-2 border-[#C0392B] pl-2.5"
-                            : "text-white/60 hover:text-white hover:bg-white/10"
+                            ? "text-white"
+                            : "text-white/55 hover:text-white hover:bg-white/8"
                         )}
-                        style={active ? { backgroundColor: "rgba(192, 57, 43, 0.15)" } : {}}
+                        style={
+                          active
+                            ? {
+                                backgroundColor: "rgba(192,57,43,0.18)",
+                                borderLeft: "3px solid #C0392B",
+                                paddingLeft: "10px",
+                              }
+                            : {}
+                        }
                       >
-                        <item.icon className={cn("w-4 h-4 flex-shrink-0", active ? "text-[#C0392B]" : "text-white/50 group-hover:text-white/80")} />
-                        {item.label}
-                        {active && <ChevronRight className="w-3 h-3 ml-auto text-[#C0392B]" />}
+                        <item.icon
+                          className={cn(
+                            "w-4 h-4 flex-shrink-0 transition-colors",
+                            active ? "text-[#C0392B]" : "text-white/40 group-hover:text-white/70"
+                          )}
+                        />
+                        <span className="flex-1">{item.label}</span>
+                        {active && <ChevronRight className="w-3 h-3 text-[#C0392B]" />}
                       </Link>
                     </li>
                   );
@@ -156,20 +189,37 @@ export function Sidebar({ role, userName, isOpen, onClose }: SidebarProps) {
         })}
       </nav>
 
-      {/* User Info + Logout */}
-      <div className="px-4 py-4 border-t border-white/10">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold text-white flex-shrink-0" style={{ backgroundColor: "#C0392B" }}>
-            {userName.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
+      {/* User area */}
+      <div className="px-3 py-4 border-t" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+        <div className="flex items-center gap-3 px-3 py-3 rounded-xl mb-1" style={{ backgroundColor: "rgba(255,255,255,0.05)" }}>
+          <div
+            className="flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold text-white flex-shrink-0"
+            style={{ backgroundColor: "#C0392B" }}
+          >
+            {initials}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-white truncate">{userName}</p>
-            <p className="text-[11px] text-white/50 truncate">{role.replace("_", " ")}</p>
+            <p className="text-sm font-semibold text-white truncate leading-none mb-0.5">{userName}</p>
+            <span
+              className="inline-block text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wide"
+              style={{ backgroundColor: "rgba(141,181,49,0.2)", color: "#AEDB44" }}
+            >
+              {role.replace("_", " ")}
+            </span>
           </div>
         </div>
         <button
           onClick={() => signOut({ callbackUrl: "/login" })}
-          className="flex items-center gap-2 w-full px-3 py-2 text-sm text-white/60 hover:text-white hover:bg-white/10 rounded-md transition-colors"
+          className="flex items-center gap-2.5 w-full px-3 py-2.5 text-sm rounded-xl transition-colors"
+          style={{ color: "rgba(255,255,255,0.4)" }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.color = "white";
+            (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.06)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.4)";
+            (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+          }}
         >
           <LogOut className="w-4 h-4" />
           Sign out

@@ -7,6 +7,11 @@ export default withAuth(
     const pathname = req.nextUrl.pathname;
     const role = token?.role as string;
 
+    // Redirect logged-in users from auth/marketing pages to /dashboard
+    if ((pathname === "/" || pathname === "/login") && token) {
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
+
     // Audit log: SCHOOL_ADMIN and SUPER_ADMIN only
     if (pathname.startsWith("/audit-log") && !["SCHOOL_ADMIN", "SUPER_ADMIN"].includes(role)) {
       return NextResponse.redirect(new URL("/dashboard", req.url));
@@ -21,24 +26,27 @@ export default withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token }) => !!token,
+      authorized: ({ token, req }) => {
+        const pathname = req.nextUrl.pathname;
+        // Public routes — no auth required
+        const publicPaths = ["/", "/features", "/pricing", "/contact", "/about", "/demo", "/login", "/register"];
+        if (publicPaths.some((p) => pathname === p || pathname.startsWith(p + "/"))) {
+          return true;
+        }
+        return !!token;
+      },
     },
   }
 );
 
 export const config = {
   matcher: [
-    "/dashboard/:path*",
-    "/students/:path*",
-    "/staff/:path*",
-    "/admissions/:path*",
-    "/finance/:path*",
-    "/attendance/:path*",
-    "/library/:path*",
-    "/inventory/:path*",
-    "/transport/:path*",
-    "/reports/:path*",
-    "/audit-log/:path*",
-    "/settings/:path*",
+    /*
+     * Match all paths except:
+     * - _next/static, _next/image (Next.js internals)
+     * - favicon.ico, public assets
+     * - API routes (handled separately)
+     */
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|svg|ico|webp)).*)",
   ],
 };
