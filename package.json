@@ -1,0 +1,18 @@
+{
+  "name": "avulix",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "db:migrate": "pnpm --filter @avulix/db db:migrate",
+    "db:seed": "pnpm --filter @avulix/db db:seed",
+    "db:studio": "pnpm --filter @avulix/db db:studio",
+    "db:generate": "pnpm --filter @avulix/db db:generate",
+    "db:push": "pnpm --filter @avulix/db db:push"
+  },
+  "devDependencies": {
+    "turbo": "^1.13.4",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

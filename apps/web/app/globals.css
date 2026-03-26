@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Avulix Brand Variables ─────────────────────────────────────────────── */
+:root {
+  --brand-red: #C0392B;
+  --brand-red-light: #E8574A;
+  --brand-red-dark: #8C2820;
+  --brand-red-tint: #FDECEA;
+  --brand-navy: #1A2340;
+  --brand-navy-light: #2E3F6F;
+  --brand-navy-dark: #0D1220;
+  --brand-navy-tint: #E8EAF0;
+  --brand-lime: #8DB531;
+  --brand-lime-light: #AEDB44;
+  --brand-lime-dark: #637F22;
+  --brand-lime-tint: #EEF7D6;
+  --gray-50: #F5F6F8;
+  --gray-100: #E2E4EA;
+  --gray-400: #9DA3B4;
+  --gray-700: #4A5168;
+  --gray-900: #1F2533;
+
+  /* shadcn/ui CSS vars */
+  --background: 0 0% 97%;
+  --foreground: 222 20% 18%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 20% 18%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 20% 18%;
+  --primary: 4 63% 46%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 30% 18%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 220 15% 95%;
+  --muted-foreground: 220 10% 50%;
+  --accent: 84 52% 45%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 4 63% 46%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 13% 90%;
+  --input: 220 13% 90%;
+  --ring: 4 63% 46%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-gray-50 text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* ── Print Utilities ────────────────────────────────────────────────────── */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
+
+.print-only {
+  display: none;
+}
+
+/* ── Sidebar Scrollbar ──────────────────────────────────────────────────── */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}

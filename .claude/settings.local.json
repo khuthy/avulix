@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm add:*)",
+      "Bash(pnpm db:generate:*)",
+      "Bash(pnpm:*)",
+      "Bash(dotenv:*)",
+      "Bash(./node_modules/.bin/dotenv:*)",
+      "Bash(ls:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx kill-port:*)"
+    ]
+  }
+}
