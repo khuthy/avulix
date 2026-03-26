@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, Lock, Mail, ArrowRight } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, ArrowRight, ArrowLeft } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -110,6 +110,16 @@ export default function LoginPage() {
               priority
             />
           </div>
+
+          <button
+            type="button"
+            onClick={() => router.push("/")}
+            className="inline-flex items-center gap-1.5 text-sm font-medium mb-8 transition-opacity hover:opacity-70"
+            style={{ color: "#9DA3B4" }}
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to home
+          </button>
 
           <h1 className="text-3xl font-extrabold mb-1" style={{ color: "#1F2533" }}>
             Welcome back
