@@ -28,7 +28,7 @@ export default async function TransportPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {routes.map((route) => {
-          const stops = (route.stops as Stop[]) ?? [];
+          const stops = (route.stops as unknown as Stop[]) ?? [];
           return (
             <div key={route.id} className="bg-white rounded-xl border shadow-sm overflow-hidden">
               {/* Route header */}

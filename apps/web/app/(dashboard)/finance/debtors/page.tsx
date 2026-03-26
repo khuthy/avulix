@@ -57,7 +57,7 @@ export default async function DebtorsPage() {
                     <td className="px-4 py-3 text-gray-500">{d.student.grade}</td>
                     <td className="px-4 py-3">{d.feeStructure.name}</td>
                     <td className="px-4 py-3 font-bold" style={{ color: "#C0392B" }}>{formatCurrency(outstanding)}</td>
-                    <td className="px-4 py-3 text-gray-500">{formatCurrency(d.paid)}</td>
+                    <td className="px-4 py-3 text-gray-500">{formatCurrency(Number(d.paid))}</td>
                     <td className="px-4 py-3 text-gray-500">{formatDate(d.dueDate)}</td>
                     <td className="px-4 py-3">
                       {overdue > 0 ? (

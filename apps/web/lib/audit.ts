@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { prisma } from "./prisma";
 
 interface LogActionParams {
@@ -14,7 +15,13 @@ interface LogActionParams {
 
 export async function logAction(params: LogActionParams): Promise<void> {
   try {
-    await prisma.auditLog.create({ data: params });
+    await prisma.auditLog.create({
+      data: {
+        ...params,
+        oldValues: params.oldValues as Prisma.InputJsonValue | undefined,
+        newValues: params.newValues as Prisma.InputJsonValue | undefined,
+      },
+    });
   } catch (err) {
     // Audit failures must never break primary flow
     console.error("[audit] Failed to write audit log:", err);

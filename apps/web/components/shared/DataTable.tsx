@@ -14,7 +14,7 @@ export interface Column<T> {
   className?: string;
 }
 
-interface DataTableProps<T extends Record<string, unknown>> {
+interface DataTableProps<T extends object> {
   columns: Column<T>[];
   data: T[];
   searchKey?: keyof T;
@@ -24,7 +24,7 @@ interface DataTableProps<T extends Record<string, unknown>> {
   emptyMessage?: string;
 }
 
-export function DataTable<T extends Record<string, unknown>>({
+export function DataTable<T extends object>({
   columns,
   data,
   searchKey,

@@ -121,7 +121,7 @@ export default async function StudentProfilePage({ params }: Props) {
                           <tr key={p.id} className="border-b last:border-0">
                             <td className="py-2 font-mono text-xs">{p.receiptNumber}</td>
                             <td className="py-2">{p.feeStructure.name}</td>
-                            <td className="py-2 font-semibold">{formatCurrency(p.amount)}</td>
+                            <td className="py-2 font-semibold">{formatCurrency(Number(p.amount))}</td>
                             <td className="py-2">{p.method}</td>
                             <td className="py-2 text-gray-500">{formatDate(p.paidAt)}</td>
                           </tr>
