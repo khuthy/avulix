@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
@@ -112,21 +113,20 @@ export function Sidebar({ role, userName, isOpen, onClose }: SidebarProps) {
     >
       {/* Logo + mobile close */}
       <div className="flex items-center justify-between px-5 py-5 border-b" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
-        <div className="flex items-center gap-2.5">
-          <div
-            className="flex items-center justify-center w-9 h-9 rounded-xl text-white font-extrabold text-base flex-shrink-0"
-            style={{ backgroundColor: "#2E3F6F" }}
-          >
-            A
+        <div className="flex flex-col gap-1">
+          <div className="bg-white rounded-xl px-2 py-1 inline-flex">
+            <Image
+              src="/transparent_background_logo.png"
+              alt="Avulix"
+              width={96}
+              height={32}
+              className="object-contain h-8 w-auto"
+              priority
+            />
           </div>
-          <div>
-            <p className="text-base font-extrabold text-white leading-none">
-              vuliX<span style={{ color: "#C0392B" }}>.</span>
-            </p>
-            <p className="text-[9px] font-medium mt-0.5" style={{ color: "rgba(255,255,255,0.3)" }}>
-              Powered by Danho Systems
-            </p>
-          </div>
+          <p className="text-[9px] font-medium pl-0.5" style={{ color: "rgba(255,255,255,0.3)" }}>
+            Powered by Danho Systems
+          </p>
         </div>
         <button
           onClick={onClose}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const footerLinks = {
@@ -32,16 +33,16 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* About Avulix */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div
-                className="flex items-center justify-center w-9 h-9 rounded-xl text-white font-extrabold text-lg"
-                style={{ backgroundColor: "#2E3F6F" }}
-              >
-                A
+            <div className="mb-4">
+              <div className="bg-white rounded-xl px-2.5 py-1.5 inline-flex">
+                <Image
+                  src="/transparent_background_logo.png"
+                  alt="Avulix"
+                  width={110}
+                  height={38}
+                  className="object-contain h-9 w-auto"
+                />
               </div>
-              <span className="text-xl font-extrabold text-white tracking-tight">
-                vuliX<span style={{ color: "#C0392B" }}>.</span>
-              </span>
             </div>
             <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
               Rebuilding the education value chain, one school at a time.

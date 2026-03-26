@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Lock, Mail, ArrowRight } from "lucide-react";
@@ -47,16 +48,17 @@ export default function LoginPage() {
 
         <div className="relative z-10">
           {/* Logo */}
-          <div className="flex items-center gap-2.5 mb-16">
-            <div
-              className="flex items-center justify-center w-10 h-10 rounded-xl font-extrabold text-lg text-white"
-              style={{ backgroundColor: "#2E3F6F" }}
-            >
-              A
+          <div className="mb-16">
+            <div className="bg-white rounded-xl px-3 py-2 inline-flex">
+              <Image
+                src="/transparent_background_logo.png"
+                alt="Avulix"
+                width={120}
+                height={42}
+                className="object-contain h-10 w-auto"
+                priority
+              />
             </div>
-            <span className="text-2xl font-extrabold text-white">
-              vuliX<span style={{ color: "#C0392B" }}>.</span>
-            </span>
           </div>
 
           <h2 className="text-4xl font-extrabold text-white leading-tight mb-4">
@@ -98,16 +100,15 @@ export default function LoginPage() {
       <div className="flex-1 flex items-center justify-center px-6 py-12 bg-white">
         <div className="w-full max-w-sm">
           {/* Mobile logo */}
-          <div className="flex items-center gap-2 mb-10 md:hidden">
-            <div
-              className="flex items-center justify-center w-9 h-9 rounded-xl font-extrabold text-base text-white"
-              style={{ backgroundColor: "#1A2340" }}
-            >
-              A
-            </div>
-            <span className="text-xl font-extrabold" style={{ color: "#1A2340" }}>
-              vuliX<span style={{ color: "#C0392B" }}>.</span>
-            </span>
+          <div className="mb-10 md:hidden">
+            <Image
+              src="/transparent_background_logo.png"
+              alt="Avulix"
+              width={110}
+              height={38}
+              className="object-contain h-9 w-auto"
+              priority
+            />
           </div>
 
           <h1 className="text-3xl font-extrabold mb-1" style={{ color: "#1F2533" }}>
