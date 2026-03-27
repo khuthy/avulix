@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { AvulixLogo } from "@/components/ui/avulix-logo";
 
 const footerLinks = {
   product: [
@@ -34,15 +34,7 @@ export function Footer() {
           {/* About Avulix */}
           <div className="lg:col-span-1">
             <div className="mb-4">
-              <div className="bg-white rounded-xl px-2.5 py-1.5 inline-flex">
-                <Image
-                  src="/transparent_background_logo.png"
-                  alt="Avulix"
-                  width={110}
-                  height={38}
-                  className="object-contain h-9 w-auto"
-                />
-              </div>
+              <AvulixLogo variant="dark" size="md" />
             </div>
             <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
               Rebuilding the education value chain, one school at a time.

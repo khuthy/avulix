@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { signIn } from "next-auth/react";
+import { AvulixLogo } from "@/components/ui/avulix-logo";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Lock, Mail, ArrowRight, ArrowLeft } from "lucide-react";
 
@@ -49,16 +49,7 @@ export default function LoginPage() {
         <div className="relative z-10">
           {/* Logo */}
           <div className="mb-16">
-            <div className="bg-white rounded-xl px-3 py-2 inline-flex">
-              <Image
-                src="/transparent_background_logo.png"
-                alt="Avulix"
-                width={120}
-                height={42}
-                className="object-contain h-10 w-auto"
-                priority
-              />
-            </div>
+            <AvulixLogo variant="dark" size="lg" />
           </div>
 
           <h2 className="text-4xl font-extrabold text-white leading-tight mb-4">
@@ -101,14 +92,7 @@ export default function LoginPage() {
         <div className="w-full max-w-sm">
           {/* Mobile logo */}
           <div className="mb-10 md:hidden">
-            <Image
-              src="/transparent_background_logo.png"
-              alt="Avulix"
-              width={110}
-              height={38}
-              className="object-contain h-9 w-auto"
-              priority
-            />
+            <AvulixLogo variant="light" size="md" />
           </div>
 
           <button

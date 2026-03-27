@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { AvulixLogo } from "@/components/ui/avulix-logo";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -44,21 +44,7 @@ export function Navbar() {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link href="/" className="flex-shrink-0">
-              <div
-                className={cn(
-                  "transition-all duration-300",
-                  !scrolled && "bg-white rounded-xl px-2 py-1"
-                )}
-              >
-                <Image
-                  src="/transparent_background_logo.png"
-                  alt="Avulix"
-                  width={110}
-                  height={38}
-                  className="object-contain h-9 w-auto"
-                  priority
-                />
-              </div>
+              <AvulixLogo variant={scrolled ? "light" : "dark"} size="md" />
             </Link>
 
             {/* Desktop nav links */}
@@ -138,15 +124,7 @@ export function Navbar() {
           <div className="flex flex-col gap-2 p-6">
             {/* Mobile overlay logo */}
             <div className="mb-2">
-              <div className="bg-white rounded-xl px-2 py-1 inline-flex">
-                <Image
-                  src="/transparent_background_logo.png"
-                  alt="Avulix"
-                  width={100}
-                  height={34}
-                  className="object-contain h-8 w-auto"
-                />
-              </div>
+              <AvulixLogo variant="dark" size="md" />
             </div>
             {navLinks.map(({ href, label }) => (
               <Link

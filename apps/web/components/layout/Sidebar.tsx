@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { AvulixLogo } from "@/components/ui/avulix-logo";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { cn } from "@/lib/utils";
@@ -114,16 +114,7 @@ export function Sidebar({ role, userName, isOpen, onClose }: SidebarProps) {
       {/* Logo + mobile close */}
       <div className="flex items-center justify-between px-5 py-5 border-b" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
         <div className="flex flex-col gap-1">
-          <div className="bg-white rounded-xl px-2 py-1 inline-flex">
-            <Image
-              src="/transparent_background_logo.png"
-              alt="Avulix"
-              width={96}
-              height={32}
-              className="object-contain h-8 w-auto"
-              priority
-            />
-          </div>
+          <AvulixLogo variant="dark" size="sm" />
           <p className="text-[9px] font-medium pl-0.5" style={{ color: "rgba(255,255,255,0.3)" }}>
             Powered by Danho Systems
           </p>
