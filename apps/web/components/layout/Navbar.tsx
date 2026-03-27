@@ -15,10 +15,16 @@ const navLinks = [
   { href: "/about", label: "About" },
 ];
 
+// Pages with a full-width dark hero — navbar can be transparent at top
+const DARK_HERO_PATHS = new Set(["/"]);
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+
+  // Transparent only when at the top of a page that has a dark hero
+  const isTransparent = !scrolled && DARK_HERO_PATHS.has(pathname);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -35,16 +41,16 @@ export function Navbar() {
       <nav
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100"
-            : "bg-transparent"
+          isTransparent
+            ? "bg-transparent"
+            : "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link href="/" className="flex-shrink-0">
-              <AvulixLogo variant={scrolled ? "light" : "dark"} size="md" />
+              <AvulixLogo variant={isTransparent ? "dark" : "light"} size="md" />
             </Link>
 
             {/* Desktop nav links */}
@@ -57,20 +63,20 @@ export function Navbar() {
                     href={href}
                     className={cn(
                       "relative px-4 py-2 text-sm font-medium rounded-lg transition-all",
-                      scrolled
+                      isTransparent
                         ? isActive
-                          ? "text-[#C0392B]"
-                          : "text-gray-600 hover:text-[#1A2340]"
-                        : isActive
                           ? "text-[#AEDB44]"
                           : "text-white/80 hover:text-white"
+                        : isActive
+                          ? "text-[#C0392B]"
+                          : "text-gray-600 hover:text-[#1A2340]"
                     )}
                   >
                     {label}
                     {isActive && (
                       <span
                         className="absolute bottom-0 left-4 right-4 h-0.5 rounded-full"
-                        style={{ backgroundColor: scrolled ? "#C0392B" : "#AEDB44" }}
+                        style={{ backgroundColor: isTransparent ? "#AEDB44" : "#C0392B" }}
                       />
                     )}
                   </Link>
@@ -84,9 +90,9 @@ export function Navbar() {
                 href="/login"
                 className={cn(
                   "px-4 py-2 text-sm font-semibold rounded-full border transition-all",
-                  scrolled
-                    ? "border-gray-300 text-gray-700 hover:border-[#1A2340] hover:text-[#1A2340]"
-                    : "border-white/40 text-white hover:border-white"
+                  isTransparent
+                    ? "border-white/40 text-white hover:border-white"
+                    : "border-gray-300 text-gray-700 hover:border-[#1A2340] hover:text-[#1A2340]"
                 )}
               >
                 Sign In
@@ -105,7 +111,7 @@ export function Navbar() {
               onClick={() => setMobileOpen((v) => !v)}
               className={cn(
                 "md:hidden p-2 rounded-lg transition-colors",
-                scrolled ? "text-gray-700 hover:bg-gray-100" : "text-white hover:bg-white/10"
+                isTransparent ? "text-white hover:bg-white/10" : "text-gray-700 hover:bg-gray-100"
               )}
               aria-label="Toggle menu"
             >
