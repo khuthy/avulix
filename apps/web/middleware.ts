@@ -7,6 +7,12 @@ export default withAuth(
     const pathname = req.nextUrl.pathname;
     const role = token?.role as string;
 
+    // Redirect all non-home public pages to / (site under construction)
+    const redirectedPublicPaths = ["/features", "/pricing", "/about", "/demo", "/contact"];
+    if (redirectedPublicPaths.some((p) => pathname === p || pathname.startsWith(p + "/"))) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
     // Redirect logged-in users from auth/marketing pages to /dashboard
     if ((pathname === "/" || pathname === "/login") && token) {
       return NextResponse.redirect(new URL("/dashboard", req.url));
